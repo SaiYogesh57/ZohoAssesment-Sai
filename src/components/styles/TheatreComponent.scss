@@ -1,0 +1,147 @@
+.theatres-list {
+  border-radius: 12px;
+  padding: 0 36px;
+  background-color: #fff;
+  .theatre-card {
+    display: flex;
+    border-bottom: 1px solid hsla(0, 0%, 6%, 0.07);
+    padding: 35px 0;
+    .accordion {
+      width: 100%;
+      margin-bottom: 12px;
+      .accordion-header {
+        button {
+          background-color: #fff;
+          padding: 0 12px;
+          color: #212121;
+        }
+        .accordion-button:focus{
+            box-shadow: none;
+        }
+      }
+    }
+
+    .booked-seats-container{
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 12px;
+        column-gap: 12px;
+        .booked-seats-box{
+        box-shadow: 0 0 4px 0 rgba(0,0,0,.3);
+        width: 150px;
+        border-radius: 8px;
+        .show-count{
+            border-bottom: 1px solid #D5D9D9;
+            margin-bottom: 0;
+            color: #007185;
+            font-weight: 600;
+        }
+        .booked-seats{
+            padding: 4px;
+        }
+    }
+    }
+    .booked-dates{
+        margin-bottom: 8px;
+        .show-date{
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+    }
+    .theatre-image {
+      width: 300px;
+      height: 300px;
+      border-radius: 8px;
+    }
+    .theatre-name {
+      font-weight: 600;
+      color: #212121;
+      margin-bottom: 0;
+    }
+    .rating {
+      img {
+        width: 16px;
+        height: 16px;
+        margin-bottom: 4px;
+        margin-right: 4px;
+      }
+    }
+    .address {
+      color: #757575;
+      font-size: 14px;
+      text-align: initial;
+      img {
+        width: 16px;
+        height: 16px;
+        margin-bottom: 4px;
+      }
+    }
+
+    .show-timings {
+      text-transform: uppercase;
+      border-bottom: 2px solid rgb(220, 53, 88);
+    }
+    .shows-container {
+      column-gap: 18px;
+      row-gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      .show-time-box {
+        border: 1px solid hsla(0, 0%, 6%, 0.07);
+        border-radius: 8px;
+        padding: 12px 8px;
+        margin-top: 12px;
+        width: 150px;
+        p {
+          margin: 0;
+        }
+        .show-time {
+          font-weight: 700;
+          color: #4abd5d;
+        }
+      }
+      .movie-name {
+        color: #374957;
+        margin-bottom: 0;
+        text-align: initial;
+      }
+      .show-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 6px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 825px) {
+  .theatres-list {
+    .theatre-card {
+      flex-direction: column;
+      row-gap: 12px;
+    .booked-seats-container{
+        .booked-seats-box{
+            width: 130px;
+        }
+    }
+      .show-box {
+        width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .theatre-image {
+        width: 250px;
+        height: 200px;
+      }
+      .shows-container {
+        justify-content: center;
+        .show-image {
+          width: 94px;
+          height: 100px;
+        }
+        .show-time-box {
+          width: 100px;
+        }
+      }
+    }
+  }
+}
