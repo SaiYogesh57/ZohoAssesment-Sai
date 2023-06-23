@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import "./styles/TheatreComponent.scss";
 import Pin from "../assets/pin.png";
@@ -6,11 +6,21 @@ import Link from "../assets/link-icon.png";
 import Rating from "../assets/rating-icon.png";
 import TheatreSeat from "../assets/theatre-seat.png";
 import { AppContext } from "../App";
+import { useLocation } from "react-router-dom";
+import BookingModal from "./BookingModal";
+import axios from "axios";
 
 const TheatresList = () => {
-  const moviesList = useContext(AppContext);
+  const [showBookingModal,setShowBookingModal]=useState(false)
+  const [bookingObject,setShowBookingObject]=useState()
+  const [showCount,setShowCount]=useState(0)
+  const {moviesList,setMoviesList} = useContext(AppContext);
   console.log(moviesList);
-  const ShowDisplayContainer = ({ showCount, movieName, showTime }) => {
+const {search}=useLocation()
+const query=new URLSearchParams(search)
+const movieName=query.get('movie')
+console.log(movieName)
+  const ShowDisplayContainer = ({ showCount, movieName, showTime,handleClick }) => {
     return (
       <div className="d-flex align-items-start flex-column show-box">
         <p className="mb-0">Show {showCount}:</p>
@@ -23,7 +33,7 @@ const TheatresList = () => {
           alt=""
         />
         <p className="movie-name">{movieName}</p>
-        <div className="show-time-box">
+        <div className="show-time-box" onClick={()=>handleClick()}>
           <p className="show-time">{showTime}</p>
         </div>
       </div>
@@ -38,9 +48,22 @@ const TheatresList = () => {
       </div>
     );
   };
+  const fetchList=(theatre_name)=>{
+    const body = {
+      user_mail_id: "sample@gmail.com",
+    };
+     axios.post(
+      "https://zincubate.in/api/MovieTicketChecker?action=getAllDetails",
+      body
+    ).then((response)=>{
+    setMoviesList(response.data)
+    setShowBookingObject(response.data?.theatre?.find(theatre=>theatre.theatre_name===theatre_name))
+    })
+  }
   return (
     <div className="col-12 col-md-10 mx-0 theatres-list mx-md-auto">
-      {moviesList?.theatre?.map((theatre) => (
+      <BookingModal show={showBookingModal} fetchList={fetchList} onClose={()=>setShowBookingModal(false)} bookingObject={bookingObject} showCount={showCount}  />
+      {moviesList?.theatre?.filter(theatre=>movieName?Object.values(theatre).includes(movieName):true).map((theatre) => (
         <div key={theatre.theatre_name} className="theatre-card">
           <div className="d-flex col-12 col-md-6 col-lg-4 flex-column align-items-start me-3 align-self-start">
             <img
@@ -66,26 +89,33 @@ const TheatresList = () => {
           <div className="d-flex flex-column align-items-start">
             <p className="show-timings">Show Timings</p>
             <div className="d-flex shows-container  ">
-              <ShowDisplayContainer
+              {(!movieName||movieName==theatre.show1_movie)&&<ShowDisplayContainer
                 showCount={1}
                 movieName={theatre.show1_movie}
                 showTime={theatre.show1_time}
-              />
-              <ShowDisplayContainer
-                showCount={2}
+                handleClick={()=>{setShowBookingModal(true);setShowBookingObject(theatre);setShowCount(1)}}
+              />}
+              {(!movieName||movieName==theatre.show2_movie)&&<ShowDisplayContainer
+               showCount={2}
                 movieName={theatre.show2_movie}
                 showTime={theatre.show2_time}
-              />
-              <ShowDisplayContainer
+                handleClick={()=>{setShowBookingModal(true);setShowBookingObject(theatre);setShowCount(2)}}
+
+              />}
+              {(!movieName||movieName==theatre.show3_movie)&&<ShowDisplayContainer
                 showCount={3}
                 movieName={theatre.show3_movie}
                 showTime={theatre.show3_time}
-              />
-              <ShowDisplayContainer
+                handleClick={()=>{setShowBookingModal(true);setShowBookingObject(theatre);setShowCount(3)}}
+
+              />}
+              {(!movieName||movieName==theatre.show4_movie)&&<ShowDisplayContainer
                 showCount={4}
                 movieName={theatre.show4_movie}
                 showTime={theatre.show4_time}
-              />
+                handleClick={()=>{setShowBookingModal(true);setShowBookingObject(theatre);setShowCount(4)}}
+
+              />}
             </div>
             {theatre?.booked_seats && (
               <Accordion>

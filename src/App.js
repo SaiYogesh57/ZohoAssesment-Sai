@@ -23,17 +23,18 @@ const [moviesList, setMoviesList] = useState([]);
     const response = await axios.post(
       "https://zincubate.in/api/MovieTicketChecker?action=getAllDetails",
       body
-    );
-    return response;
+    )
+    return response
   };
   useEffect(() => {
     fetchList().then((response) => {
       setMoviesList(response.data);
     });
   }, []);
+  
   return (
     <div className="App">
-        <AppContext.Provider value={moviesList}>
+        <AppContext.Provider value={{moviesList:moviesList,setMoviesList:setMoviesList}}>
       <Router>
 
       <Navigation />

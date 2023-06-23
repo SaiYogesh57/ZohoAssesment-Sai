@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./styles/ListComponent.scss";
 import { AppContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const ListComponent = () => {
-  const moviesList = useContext(AppContext);
+  const navigate=useNavigate()
+  const {moviesList} = useContext(AppContext);
   const [filteredMoviesList, setFilteredMoviesList] = useState(
     moviesList?.movies
   );
@@ -85,7 +87,7 @@ const ListComponent = () => {
       </div>
       <div className="movies-list col-12">
         {filteredMoviesList?.map((listItem) => (
-          <div className="card" key={listItem?.movie_name}>
+          <div className="card" key={listItem?.movie_name} onClick={()=>navigate(`/theatres?movie=${listItem?.movie_name}`)}>
             <div className="image">
               <img src={listItem?.thumbnail_url} alt="movie logo" />
             </div>

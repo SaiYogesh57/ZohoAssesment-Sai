@@ -1,0 +1,53 @@
+.seats-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7%;
+    .seats-box{
+        display: grid;
+        grid-template-columns: repeat(10,auto);
+        img{
+            cursor: pointer;
+        }
+    }
+}
+.movie_name{
+    text-transform: uppercase;
+    border-bottom: 2px solid rgb(220, 53, 88);
+width: fit-content;
+}
+.book-button{
+    background-color: rgb(220, 53, 88);
+    color: #fff;
+    border: none;
+    &:hover{
+        background-color: rgb(220, 53, 88);
+        color: #fff;
+        border: none;
+    }
+}
+.cursor-not-allowed{
+    cursor: not-allowed;
+}
+.booking-date{
+    border: 1px solid hsla(0, 0%, 6%, 0.07);
+    border-radius: 8px;
+    padding: 12px 8px;
+    margin-top: 12px;
+    width: 150px;
+    font-weight: 700;
+    color: #4abd5d;
+    margin-right: 12px;
+    margin-bottom: 18px;
+    text-align: center;
+    cursor: pointer;
+    &.booked-today{
+     background-color: rgb(220, 53, 88);
+     color: #fff;
+
+    }
+}
+.booking-response{
+    font-weight: 600;
+    color: #4abd5d;
+text-align: center;
+}
