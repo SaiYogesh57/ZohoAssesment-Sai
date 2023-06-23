@@ -30,12 +30,11 @@ const TheatresList = () => {
     );
   };
   const BookedShows = ({ showCount, show_booked_seats }) => {
-    const bookedSeats=show_booked_seats.split(",")
-       console.log(bookedSeats)
+    const bookedSeats=show_booked_seats.split(",").map((seat) => seat.replace(/[\[, \]]/g,'')).filter((seat)=>seat!=="")
     return (
       <div className="booked-seats-box">
         <p className="show-count">Show {showCount}:{" "}</p>
-        <p className="booked-seats">{bookedSeats?.map((seat) => seat.replace(/[\[\]]/g,'')).join(",")}</p>
+        <p className="booked-seats">{bookedSeats.map(seat=>seat).join(",")}</p>
       </div>
     );
   };
@@ -43,7 +42,7 @@ const TheatresList = () => {
     <div className="col-12 col-md-10 mx-0 theatres-list mx-md-auto">
       {moviesList?.theatre?.map((theatre) => (
         <div key={theatre.theatre_name} className="theatre-card">
-          <div className="d-flex col-12 col-md-6 col-lg-4 flex-column align-items-start me-3 align-self-center">
+          <div className="d-flex col-12 col-md-6 col-lg-4 flex-column align-items-start me-3 align-self-start">
             <img
               className="theatre-image"
               src={theatre.thumbnail_url}
